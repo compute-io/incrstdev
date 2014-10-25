@@ -30,11 +30,8 @@ describe( 'compute-incrstdev', function tests() {
 	it( 'should compute a sample standard deviation incrementally', function test() {
 		var data,
 			N,
-			sum,
-			d,
 			expected,
 			actual,
-			mean,
 			stdev;
 
 		data = [ 2, 3, 2, 4, 3, 4 ];
@@ -45,10 +42,9 @@ describe( 'compute-incrstdev', function tests() {
 
 		stdev = incrstdev();
 
-		sum = 0;
 		for ( var i = 0; i < N; i++ ) {
 			expected[ i ] = calc( data.slice( 0, i+1 ) );
-			actual[ i ] = stdev( d );
+			actual[ i ] = stdev( data[ i ] );
 		}
 
 		assert.deepEqual( actual, expected );
@@ -66,7 +62,7 @@ describe( 'compute-incrstdev', function tests() {
 			}
 			mean = sum / N;
 			for ( var j = 0; j < N; j++ ) {
-				M2 += Math.pow( arr[i], 2 );
+				M2 += Math.pow( arr[j]-mean, 2 );
 			}
 			return Math.sqrt( M2 / (N-1) );
 		}
